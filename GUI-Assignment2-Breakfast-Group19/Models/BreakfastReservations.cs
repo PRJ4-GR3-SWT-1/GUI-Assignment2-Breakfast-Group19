@@ -7,9 +7,13 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
 {
     public class BreakfastReservations
     {
-        public BreakfastReservations() { }
+        public BreakfastReservations()
+        {
+            BreakfastReservationList = new List<Room>();
+        }
         public BreakfastReservations(Room room, DateTime now)
         {
+            BreakfastReservationList = new List<Room>();
             Date = now;
             BreakfastReservationList.Add(room);
         }

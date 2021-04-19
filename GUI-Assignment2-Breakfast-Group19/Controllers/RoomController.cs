@@ -63,8 +63,9 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         {
             if (ModelState.IsValid)
             {
-                var date=DateTime.Now;
+                var date=DateTime.Today;
                 var res = _context.BreakfastReservations.SingleOrDefault(b => b.Date == date);
+                if (res == null) return Content("Date not found");
                 res.BreakfastReservationList.Add(room);
                 //_context.Add(room);
                 await _context.SaveChangesAsync();
