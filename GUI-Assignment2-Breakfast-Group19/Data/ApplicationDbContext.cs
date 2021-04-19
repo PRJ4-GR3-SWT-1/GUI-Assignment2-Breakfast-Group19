@@ -12,5 +12,8 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
             : base(options)
         {
         }
+
+        public DbSet<Room> Room { get; set; }
+        public DbSet<ArrivalsAtBreakfast> ArrivalsAtBreakfast { get; set; }
     }
 }
