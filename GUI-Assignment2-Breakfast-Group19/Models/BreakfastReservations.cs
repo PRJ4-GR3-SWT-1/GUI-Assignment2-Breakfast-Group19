@@ -7,6 +7,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
 {
     public class BreakfastReservations
     {
+        public BreakfastReservations() { }
         public BreakfastReservations(Room room, DateTime now)
         {
             Date = now;

@@ -7,6 +7,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
 {
     public class Room
     {
+        public Room() { }
         public Room(int rn, int adults, int children)
         {
             RoomNumber = rn;
