@@ -7,7 +7,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
 {
     public class ArrivalsAtBreakfast
     {
-        ArrivalsAtBreakfast()
+        public ArrivalsAtBreakfast()
         {
             BreakfastAttendees = new List<Room>();
         }

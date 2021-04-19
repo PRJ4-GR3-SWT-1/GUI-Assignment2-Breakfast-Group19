@@ -16,6 +16,6 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
 
         public DbSet<Room> Room { get; set; }
         public DbSet<ArrivalsAtBreakfast> ArrivalsAtBreakfast { get; set; }
-        public DbSet<GUI_Assignment2_Breakfast_Group19.Models.BreakfastReservations> BreakfastReservations { get; set; }
+        public DbSet<BreakfastReservations> BreakfastReservations { get; set; }
     }
 }
