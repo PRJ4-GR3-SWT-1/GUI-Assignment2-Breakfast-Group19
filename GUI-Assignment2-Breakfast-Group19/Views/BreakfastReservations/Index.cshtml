@@ -20,10 +20,11 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+
+    <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
-                @Html.Raw($"ReservationCount: {Model.Count()}")
+                <p>ReservationsCount: @item.BreakfastReservationList.Count </p>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BreakfastReservationsId">Edit</a> |

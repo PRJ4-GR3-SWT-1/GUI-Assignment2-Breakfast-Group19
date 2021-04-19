@@ -23,6 +23,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
+                <p>AttendeesCount: @item.BreakfastAttendees.Count </p>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ArrivalsAtBreakfastId">Edit</a> |
