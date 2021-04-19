@@ -25,7 +25,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
             }
         }
 
-        private void SeedRoomRandomAdultAndChildren(int roomnumber, ApplicationDbContext dbContext)
+        private Room SeedRoomRandomAdultAndChildren(int roomnumber, ApplicationDbContext dbContext)
         {
             Random rand = new Random();
             int adults = rand.Next(1, 4);
@@ -33,7 +33,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
 
             Room r = new Room(roomnumber, adults, children);
             dbContext.Add(r);
-
+            return r;
         }
 
 
@@ -42,38 +42,91 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
         {
             for (int i = 1;i < 5; i++)
             {
-                SeedRoomRandomAdultAndChildren(i,dbContext);
+                Room r = SeedRoomRandomAdultAndChildren(i,dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now);
+                    dbContext.BreakfastReservations.Add(br);
+                }
             }
         }
 
         private void SeedSecondDay(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(1));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
 
         private void SeedThirdDay(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(2));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
 
         private void SeedFourthDay(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(3));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
 
         private void SeedFifthDay(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(4));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
 
         private void SeedSixthDay(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(5));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
 
         private void SeedSeventhDay(ApplicationDbContext dbContext)
         {
-            
+            for (int i = 1; i < 5; i++)
+            {
+                Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
+                if ((i % 2) == 1)
+                {
+                    BreakfastReservations br = new BreakfastReservations(r, DateTime.Now.AddDays(6));
+                    dbContext.BreakfastReservations.Add(br);
+                }
+            }
         }
     }
 }
