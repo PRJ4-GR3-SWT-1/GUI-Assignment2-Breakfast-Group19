@@ -11,11 +11,10 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
         {
             BreakfastReservationList = new List<Room>();
         }
-        public BreakfastReservations(Room room, DateTime now)
+        public BreakfastReservations( DateTime now)
         {
             BreakfastReservationList = new List<Room>();
             Date = now;
-            BreakfastReservationList.Add(room);
         }
         public int BreakfastReservationsId { get; set; }
         public DateTime Date { get; set; }

@@ -18,6 +18,40 @@
         </dd>
     </dl>
 </div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Reservations</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        int numberOfChildren = 0;
+        int numberOfAdults = 0;
+    }
+    @foreach (var item in Model.BreakfastReservationList)
+    {
+        <tr>
+            <td>
+
+                <p>
+                    Room number: @item.RoomNumber | Adults: @item.Adults  |  Children: @item.Children |
+                    <a asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
+                </p>
+                @{
+                    numberOfAdults += item.Adults;
+                    numberOfChildren += item.Children;
+                }
+            </td>
+
+        </tr>
+    }
+    </tbody>
+</table>
+<p>Total number of Adults: @numberOfAdults Children: @numberOfChildren</p>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.BreakfastReservationsId">Edit</a> |
     <a asp-action="Index">Back to List</a>

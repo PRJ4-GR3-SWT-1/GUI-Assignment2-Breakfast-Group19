@@ -22,6 +22,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // GET: BreakfastReservations
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.BreakfastReservations.ToListAsync());
         }
 
@@ -34,6 +35,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
 
             var breakfastReservations = await _context.BreakfastReservations
+                .Include(b=>b.BreakfastReservationList)
                 .FirstOrDefaultAsync(m => m.BreakfastReservationsId == id);
             if (breakfastReservations == null)
             {

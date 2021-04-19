@@ -22,6 +22,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // GET: ArrivalsAtBreakfasts
         public async Task<IActionResult> Index()
         {
+            var sd = new SeedData(_context);
             return View(await _context.ArrivalsAtBreakfast.ToListAsync());
         }
 
