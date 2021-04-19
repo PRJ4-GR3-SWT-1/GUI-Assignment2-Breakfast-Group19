@@ -7,6 +7,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
 {
     public class ArrivalsAtBreakfast
     {
+        private int ArrivalsAtBreakfastId { get; set; }
         public DateTime Date { get; set; }
         public List<Room> BreakfastAttendees { get; set; }
     }
