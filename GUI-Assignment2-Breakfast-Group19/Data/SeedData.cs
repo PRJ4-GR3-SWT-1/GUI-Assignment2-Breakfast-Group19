@@ -15,8 +15,9 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
             var r = dbContext.Room.FirstOrDefault();
             if (r == null)
             {
-              
-                
+                Seed7Day(dbContext);
+
+
                 SeedArrivals(dbContext);
             }
         }
