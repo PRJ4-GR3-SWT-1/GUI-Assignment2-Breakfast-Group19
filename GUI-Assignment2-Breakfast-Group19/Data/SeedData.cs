@@ -22,7 +22,21 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
                 //SeedFifthDay(dbContext);
                 //SeedSixthDay(dbContext);
                 //SeedSeventhDay(dbContext);
+                SeedArrivals(dbContext);
             }
+        }
+
+        private void SeedArrivals(ApplicationDbContext dbContext)
+        {
+            var arrivals = new ArrivalsAtBreakfast();
+            for (int i = 0; i < 4; i++)
+            {
+                arrivals.BreakfastAttendees.Add(new Room(i+100, i + 1, i * 2));
+            }
+
+            dbContext.Add(arrivals);
+            dbContext.SaveChanges();
+
         }
 
         private Room SeedRoomRandomAdultAndChildren(int roomnumber, ApplicationDbContext dbContext)

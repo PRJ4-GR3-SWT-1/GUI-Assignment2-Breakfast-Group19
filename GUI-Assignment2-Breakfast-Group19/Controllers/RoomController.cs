@@ -59,11 +59,11 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateReservation([Bind("RoomId,RoomNumber,Adults,Children")] Room room/*, DateTime date*/)
+        public async Task<IActionResult> CreateReservation([Bind("RoomId,RoomNumber,Adults,Children")] Room room, DateTime? date)
         {
             if (ModelState.IsValid)
             {
-                var date=DateTime.Today;
+                if(date==null)  date=DateTime.Today;
                 var res = _context.BreakfastReservations.SingleOrDefault(b => b.Date == date);
                 if (res == null) return Content("Date not found");
                 res.BreakfastReservationList.Add(room);

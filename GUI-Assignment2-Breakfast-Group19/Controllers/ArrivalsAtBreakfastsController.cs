@@ -23,7 +23,8 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         public async Task<IActionResult> Index()
         {
             var sd = new SeedData(_context);
-            return View(await _context.ArrivalsAtBreakfast.ToListAsync());
+            return View( _context.ArrivalsAtBreakfast.Include(a=>a.BreakfastAttendees)
+                .First());
         }
 
         // GET: ArrivalsAtBreakfasts/Details/5
@@ -140,9 +141,16 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var arrivalsAtBreakfast = await _context.ArrivalsAtBreakfast.FindAsync(id);
-            _context.ArrivalsAtBreakfast.Remove(arrivalsAtBreakfast);
-            await _context.SaveChangesAsync();
+            var arrivalsAtBreakfast = await _context.ArrivalsAtBreakfast
+                .Include(b => b.BreakfastAttendees)
+                .FirstOrDefaultAsync(m => m.ArrivalsAtBreakfastId == id);
+
+            foreach (var room in arrivalsAtBreakfast.BreakfastAttendees)
+            {
+                _context.Remove(_context.Room.Single(r => r.RoomId == room.RoomId));
+            }
+
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

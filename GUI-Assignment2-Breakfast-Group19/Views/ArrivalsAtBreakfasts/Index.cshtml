@@ -1,36 +1,75 @@
-﻿@model IEnumerable<GUI_Assignment2_Breakfast_Group19.Models.ArrivalsAtBreakfast>
+﻿@model ArrivalsAtBreakfast
 
 @{
     ViewData["Title"] = "Index";
 }
 
+
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Room" asp-action="CreateArrival">Check New People In</a>
 </p>
+<p>Guest Checked into Breakfast  @Model.Date</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Room Number
+            </th>
+            <th>
+                Adults
+            </th>
+            <th>
+                Children
+            </th>
+            <th>
+                Actions
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-                <p>AttendeesCount: @item.BreakfastAttendees.Count </p>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ArrivalsAtBreakfastId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArrivalsAtBreakfastId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ArrivalsAtBreakfastId">Delete</a>
-            </td>
-        </tr>
-}
+        @{
+            int numberOfChildren = 0;
+            int numberOfAdults = 0;
+        }
+        @foreach (var item in Model.BreakfastAttendees)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                     @item.Adults
+                </td>
+                <td>
+                     @item.Children
+                </td>
+                <td>
+                    <a asp-controller="Room" asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
+                    <a asp-controller="Room" asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
+                    <a asp-controller="Room" asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
+                </td>
+            </tr>
+
+            numberOfAdults += item.Adults;
+            numberOfChildren += item.Children;
+
+        }
+    <tr class="summary">
+        <td >
+            Total:
+        </td>
+        <td>
+            @numberOfAdults
+        </td>
+        <td>
+            @numberOfChildren
+        </td>
+        
+    </tr>
     </tbody>
 </table>
+
+
