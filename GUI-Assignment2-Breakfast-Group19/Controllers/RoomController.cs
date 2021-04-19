@@ -46,7 +46,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // GET: Room/Create
         public IActionResult CreateReservation(/*DateTime date*/)
         {
-            return View(/*date*/);
+            return View(new RoomExtended(){date=DateTime.Today.Date});
         }
         // GET: Room/Create
         public IActionResult CreateArrival()
@@ -59,12 +59,17 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateReservation([Bind("RoomId,RoomNumber,Adults,Children")] Room room, DateTime? date)
+        public async Task<IActionResult> CreateReservation([Bind("RoomId,RoomNumber,Adults,Children,date")] RoomExtended room)
         {
             if (ModelState.IsValid)
             {
-                if(date==null)  date=DateTime.Today;
-                var res = _context.BreakfastReservations.SingleOrDefault(b => b.Date == date);
+                DateTime date;
+                if(room.date==null)  date=DateTime.Today;
+                //else
+                {
+                    date = (room.date);
+                }
+                var res = _context.BreakfastReservations.SingleOrDefault(b => b.Date.Day== date.Day);
                 if (res == null) return Content("Date not found");
                 res.BreakfastReservationList.Add(room);
                 //_context.Add(room);
