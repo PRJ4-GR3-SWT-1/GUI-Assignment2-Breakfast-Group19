@@ -7,6 +7,14 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
 {
     public class Room
     {
+        public Room(int rn, int adults, int children)
+        {
+            RoomNumber = rn;
+            Adults = adults;
+            Children = children;
+        }
+
+
         public int RoomId { get; set; }
         public int RoomNumber { get; set; }
         public int Adults { get; set; }
