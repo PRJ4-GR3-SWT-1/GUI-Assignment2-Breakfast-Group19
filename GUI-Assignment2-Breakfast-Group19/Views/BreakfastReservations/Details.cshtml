@@ -22,7 +22,19 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Reservations</th>
+        <th>
+            Room Number
+        </th>
+        <th>
+            Adults
+        </th>
+        <th>
+            Children
+        </th>
+        <th>
+            Actions
+        </th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -36,23 +48,45 @@
             <td>
 
                 <p>
-                    Room number: @item.RoomNumber | Adults: @item.Adults  |  Children: @item.Children |
-                    <a asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
+                     @item.RoomNumber 
+                    
                 </p>
                 @{
                     numberOfAdults += item.Adults;
                     numberOfChildren += item.Children;
                 }
             </td>
-
+            <td>
+                 @item.Adults 
+            </td>
+            <td>
+                 @item.Children 
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
+            </td>
         </tr>
     }
+    <tr class="summary">
+        <td>
+            Total:
+        </td>
+        <td>
+            @numberOfAdults
+        </td>
+        <td>
+            @numberOfChildren
+        </td>
+
+    </tr>
     </tbody>
 </table>
-<p>Total number of Adults: @numberOfAdults Children: @numberOfChildren</p>
 <div>
+    <p>
+        <a asp-controller="Room" asp-action="CreateReservation">Create Breakfast Reservation</a>
+    </p>
     <a asp-action="Edit" asp-route-id="@Model.BreakfastReservationsId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
