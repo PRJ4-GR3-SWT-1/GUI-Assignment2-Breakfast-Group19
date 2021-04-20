@@ -51,7 +51,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity.Pages.Account
             public string Name { get; set; }
 
             [Required]
-            [Display(Name = "Occupation, must be Reception, Servant or Guest")]
+            [Display(Name = "Occupation, must be Guest, Reception, Servant or Admin")]
             public string Occupation { get; set; }
 
             [Required]
