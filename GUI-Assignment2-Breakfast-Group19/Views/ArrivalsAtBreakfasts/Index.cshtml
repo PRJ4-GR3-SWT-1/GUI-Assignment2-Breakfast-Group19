@@ -13,50 +13,50 @@
 <p>Guest Checked into Breakfast  @Model.Date.Date.ToString("D"):</p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Room Number
-            </th>
-            <th>
-                Adults
-            </th>
-            <th>
-                Children
-            </th>
-            <th>
-                Actions
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Room Number
+        </th>
+        <th>
+            Adults
+        </th>
+        <th>
+            Children
+        </th>
+        <th>
+            Actions
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @{
-            int numberOfChildren = 0;
-            int numberOfAdults = 0;
-        }
-        @foreach (var item in Model.BreakfastAttendees)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoomNumber)
-                </td>
-                <td>
-                    @item.Adults
-                </td>
-                <td>
-                    @item.Children
-                </td>
-                <td>
-                    <a asp-controller="Room" asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
-                    <a asp-controller="Room" asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
-                    <a asp-controller="Room" asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
-                </td>
-            </tr>
+    @{
+        int numberOfChildren = 0;
+        int numberOfAdults = 0;
+    }
+    @foreach (var item in Model.BreakfastAttendees)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNumber)
+            </td>
+            <td>
+                @item.Adults
+            </td>
+            <td>
+                @item.Children
+            </td>
+            <td>
+                <a asp-controller="Room" asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
+                <a asp-controller="Room" asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
+                <a asp-controller="Room" asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
+            </td>
+        </tr>
 
-            numberOfAdults += item.Adults;
-            numberOfChildren += item.Children;
+        numberOfAdults += item.Adults;
+        numberOfChildren += item.Children;
 
-        }
+    }
     <tr class="summary">
         <td>
             Total:
@@ -71,26 +71,26 @@
             @numberOfAdults + @numberOfChildren = @{int sum = numberOfAdults + numberOfChildren;} @sum
         </td>
     </tr>
-    
-        <tr >
-            <td>
-                Total Reservations:
-            </td>
-            <td>
-                @Model.AdultReservations
-            </td>
-            <td>
-                @Model.ChildReservations
-            </td>
-            <td>
-                @Model.AdultReservations + @Model.ChildReservations = @{ int resSum = Model.AdultReservations + Model.ChildReservations;} @resSum
-            </td>
+
+    <tr>
+    <td>
+        Total Reservations:
+    </td>
+    <td>
+        @Model.AdultReservations
+    </td>
+    <td>
+        @Model.ChildReservations
+    </td>
+    <td>
+        @Model.AdultReservations + @Model.ChildReservations = @{ int resSum = Model.AdultReservations + Model.ChildReservations;} @resSum
+    </td>
     <tr class="summary">
         <td>
             Not yet arrived :
         </td>
         <td>
-            @{int adultsMissing= Model.AdultReservations - numberOfAdults;} @adultsMissing
+            @{int adultsMissing = Model.AdultReservations - numberOfAdults;} @adultsMissing
         </td>
         <td>
             @{int childrenMissing = Model.ChildReservations - numberOfChildren;} @childrenMissing
@@ -98,8 +98,10 @@
         <td>
             @adultsMissing + @childrenMissing = @{ sum = adultsMissing + childrenMissing;} @sum
         </td>
-        </tr>
+    </tr>
     </tbody>
+    
 </table>
+<button class="btn btn-primary" onClick="window.location.reload();">Refresh Page</button>
 
 
