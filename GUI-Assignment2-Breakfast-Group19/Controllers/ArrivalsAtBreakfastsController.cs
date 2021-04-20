@@ -21,8 +21,13 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return RedirectToAction(nameof(Details));
+        }
+
         // GET: ArrivalsAtBreakfasts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Calendar()
         {
             var sd = new SeedData(_context);
             //Check if today exists:
@@ -54,14 +59,14 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         }
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var arrivals = _context.ArrivalsAtBreakfast
                 .Include(a => a.BreakfastAttendees)
                 .SingleOrDefault(a => a.ArrivalsAtBreakfastId==id);
+            if (arrivals == null)
+            {
+                arrivals = await _context.ArrivalsAtBreakfast.SingleAsync(a => a.Date.Date == DateTime.Today.Date);
+            }
+
             if (arrivals == null)
             {
                 return NotFound();
