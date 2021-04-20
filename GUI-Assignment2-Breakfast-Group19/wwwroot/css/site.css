@@ -29,11 +29,17 @@ a {
 html {
   font-size: 14px;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   html {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
+@media (min-width: 1024px) {
+    html {
+        font-size: 16px;
+    }
+}
+
 
 .border-top {
   border-top: 1px solid #e5e5e5;
@@ -50,6 +56,7 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -74,3 +81,35 @@ body {
 .summary {
     font-weight: bold
 }
+
+
+.btn-space {
+    margin: 10px;
+}
+
+.login-front {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+
+}
+
+/*Responsive design for buttons*/
+@media screen and (max-width: 360px) {
+    #login-submit {
+        font-size: 20px;
+
+    }
+
+
+}
+
+
+@media screen and (min-width: 360px) and (max-width: 1025px) {
+
+    #login-submit {
+        font-size: 16px;
+    }
+}
+
+
