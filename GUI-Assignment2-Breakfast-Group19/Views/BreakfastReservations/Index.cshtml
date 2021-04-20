@@ -11,6 +11,7 @@
 
     <button class="btn btn-primary"><a asp-controller="Room" asp-action="CreateReservation" class="text-light">Create Breakfast Reservation</a></button>
 </p>
+<p>Click on a date to see reservation details for that day</p>
 <table class="table">
     <thead>
         <tr>
@@ -18,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                Number of reservations
+                Attendees
             </th>
             <th>
                 Actions
@@ -33,11 +34,10 @@
             @item.Date.Date.ToString("D")
         </a></td>
         <td>
-           @item.BreakfastReservationList.Count 
+           @item.GetNumberOfAdultsAndChildren().Sum() 
         </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BreakfastReservationsId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BreakfastReservationsId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.BreakfastReservationsId">Delete</a>
             </td>
         </tr>
