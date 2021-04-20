@@ -29,10 +29,9 @@
 @foreach (var item in Model) {
 
     <tr>
-        <td>
+        <td><a asp-action="Details" asp-route-id="@item.BreakfastReservationsId">
             @item.Date.Date.ToString("D")
-                
-        </td>
+        </a></td>
         <td>
            @item.BreakfastReservationList.Count 
         </td>
