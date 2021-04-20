@@ -24,7 +24,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
 
         private void SeedArrivals(ApplicationDbContext dbContext)
         {
-            var arrivals = new ArrivalsAtBreakfast();
+            var arrivals = new ArrivalsAtBreakfast(){Date = DateTime.Today};
             for (int i = 0; i < 4; i++)
             {
                 arrivals.BreakfastAttendees.Add(new Room(i+100, i + 1, i * 2));

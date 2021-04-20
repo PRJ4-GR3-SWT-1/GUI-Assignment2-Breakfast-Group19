@@ -25,7 +25,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             var sd = new SeedData(_context);
             var arrivals = _context.ArrivalsAtBreakfast
                 .Include(a => a.BreakfastAttendees)
-                .Single(a => a.Date.Date == DateTime.Today.Date);
+                .SingleOrDefault(a => a.Date.Date == DateTime.Today.Date);
             if (arrivals == null)
             {
                 arrivals = new ArrivalsAtBreakfast() {Date = DateTime.Today};
