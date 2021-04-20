@@ -28,12 +28,23 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
                 .SingleOrDefault(a => a.Date.Date == DateTime.Today.Date);
             if (arrivals == null)
             {
-                arrivals = new ArrivalsAtBreakfast() {Date = DateTime.Today};
+                arrivals = (ArrivalsExtended) new ArrivalsAtBreakfast() {Date = DateTime.Today};
                 _context.ArrivalsAtBreakfast.Add(arrivals);
                 _context.SaveChanges();
             }
-        
-        return View(arrivals );
+            //Get reservations:
+            var res = _context.BreakfastReservations
+                .Include(r => r.BreakfastReservationList)
+                .SingleOrDefault(r => r.Date.Date == DateTime.Today.Date);
+            var resNumber = res?.GetNumberOfAdultsAndChildren();
+            ArrivalsExtended arrivalsExtended = new ArrivalsExtended(arrivals);
+            if (resNumber != null)
+            {
+                    arrivalsExtended.AdultReservations = resNumber[0];
+                    arrivalsExtended.ChildReservations = resNumber[1];
+            }
+
+            return View(arrivalsExtended);
         }
 
         // GET: ArrivalsAtBreakfasts/Details/5

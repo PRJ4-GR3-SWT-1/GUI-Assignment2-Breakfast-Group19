@@ -1,4 +1,4 @@
-﻿@model ArrivalsAtBreakfast
+﻿@model ArrivalsExtended
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,7 @@
 <p>
     <a asp-controller="Room" asp-action="CreateArrival">Check New People In</a>
 </p>
-<p>Guest Checked into Breakfast  @Model.Date</p>
+<p>Guest Checked into Breakfast  @Model.Date.Date</p>
 <table class="table">
     <thead>
         <tr>
@@ -41,10 +41,10 @@
                     @Html.DisplayFor(modelItem => item.RoomNumber)
                 </td>
                 <td>
-                     @item.Adults
+                    @item.Adults
                 </td>
                 <td>
-                     @item.Children
+                    @item.Children
                 </td>
                 <td>
                     <a asp-controller="Room" asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
@@ -58,7 +58,7 @@
 
         }
     <tr class="summary">
-        <td >
+        <td>
             Total:
         </td>
         <td>
@@ -67,8 +67,38 @@
         <td>
             @numberOfChildren
         </td>
-        
+        <td>
+            @numberOfAdults + @numberOfChildren = @{int sum = numberOfAdults + numberOfChildren;} @sum
+        </td>
     </tr>
+    
+        <tr >
+            <td>
+                Total Reservations:
+            </td>
+            <td>
+                @Model.AdultReservations
+            </td>
+            <td>
+                @Model.ChildReservations
+            </td>
+            <td>
+                @Model.AdultReservations + @Model.ChildReservations = @{ int resSum = Model.AdultReservations + Model.ChildReservations;} @resSum
+            </td>
+    <tr class="summary">
+        <td>
+            Not yet arrived :
+        </td>
+        <td>
+            @{int adultsMissing= Model.AdultReservations - numberOfAdults;} @adultsMissing
+        </td>
+        <td>
+            @{int childrenMissing = Model.ChildReservations - numberOfChildren;} @childrenMissing
+        </td>
+        <td>
+            @adultsMissing + @childrenMissing = @{ sum = adultsMissing + childrenMissing;} @sum
+        </td>
+        </tr>
     </tbody>
 </table>
 

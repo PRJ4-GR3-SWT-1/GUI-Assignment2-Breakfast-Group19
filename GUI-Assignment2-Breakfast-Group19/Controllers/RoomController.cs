@@ -89,9 +89,8 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
                 if (res == null) return Content("Date not found");
                 res.BreakfastAttendees.Add(room);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), "ArrivalsAtBreakfasts");
             }
-            return View(room);
+            return RedirectToAction(nameof(Index), "ArrivalsAtBreakfasts");
         }
 
         // GET: Room/Edit/5
