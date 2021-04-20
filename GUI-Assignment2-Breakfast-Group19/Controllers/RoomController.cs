@@ -44,9 +44,9 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         }
 
         // GET: Room/Create
-        public IActionResult CreateReservation(/*DateTime date*/)
+        public IActionResult CreateReservation()
         {
-            return View(new RoomExtended(){date=DateTime.Today.Date});
+            return View(new RoomExtended(){date = DateTime.Today.Date});
         }
         // GET: Room/Create
         public IActionResult CreateArrival()
@@ -64,10 +64,10 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             if (ModelState.IsValid)
             {
                 DateTime date;
-                if(room.date==null)  date=DateTime.Today;
-                //else
+                if(room.date==new DateTime())  date=DateTime.Today;
+                else
                 {
-                    date = (room.date);
+                    date = room.date;
                 }
                 var res = _context.BreakfastReservations.SingleOrDefault(b => b.Date.Day== date.Day);
                 if (res == null) return Content("Date not found");
