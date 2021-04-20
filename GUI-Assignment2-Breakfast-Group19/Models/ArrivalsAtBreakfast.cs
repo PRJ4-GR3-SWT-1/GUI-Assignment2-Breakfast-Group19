@@ -16,7 +16,9 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
         public DateTime Date { get; set; }
         public List<Room> BreakfastAttendees { get; set; }
     }
-
+    /// <summary>
+    /// ArrivalsAtBreakfast, but exented with reservationcounts, used to compare in arrival index
+    /// </summary>
     public class ArrivalsExtended : ArrivalsAtBreakfast
     {
         public ArrivalsExtended(ArrivalsAtBreakfast input)
