@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GUI_Assignment2_Breakfast_Group19.Areas.Identity;
 
 namespace GUI_Assignment2_Breakfast_Group19
 {
@@ -30,8 +31,8 @@ namespace GUI_Assignment2_Breakfast_Group19
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(option => option.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+           /* services.AddDefaultIdentity<IdentityUser>(option => option.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();*/
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -42,7 +43,7 @@ namespace GUI_Assignment2_Breakfast_Group19
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +62,7 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             app.UseAuthentication();
             app.UseAuthorization();
+            SeedUsers.SeedTheUsers(userManager);
 
             app.UseEndpoints(endpoints =>
             {
