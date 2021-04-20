@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GUI_Assignment2_Breakfast_Group19.Data;
 using GUI_Assignment2_Breakfast_Group19.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GUI_Assignment2_Breakfast_Group19.Controllers
 {
@@ -42,12 +43,13 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
 
             return View(room);
         }
-
+        [Authorize(Policy = "CanAccessReception")]
         // GET: Room/Create
         public IActionResult CreateReservation()
         {
             return View(new RoomExtended(){date = DateTime.Today.Date});
         }
+        [Authorize(Policy = "CanCheckInGuests")]
         // GET: Room/Create
         public IActionResult CreateArrival()
         {
@@ -57,6 +59,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // POST: Room/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "CanAccessReception")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateReservation([Bind("RoomId,RoomNumber,Adults,Children,date")] RoomExtended room)
@@ -79,6 +82,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             return RedirectToAction(nameof(Index), nameof(BreakfastReservations));
         }
 
+        [Authorize(Policy = "CanCheckInGuests")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateArrival([Bind("RoomId,RoomNumber,Adults,Children")] Room room)
@@ -93,6 +97,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             return RedirectToAction(nameof(Index), "ArrivalsAtBreakfasts");
         }
 
+        [Authorize(Policy = "CanEditRooms")]
         // GET: Room/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -108,7 +113,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
             return View(room);
         }
-
+        [Authorize(Policy = "CanEditRooms")]
         // POST: Room/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -143,7 +148,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
             return View(room);
         }
-
+        [Authorize(Policy = "CanEditRooms")]
         // GET: Room/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -161,7 +166,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
 
             return View(room);
         }
-
+        [Authorize(Policy = "CanEditRooms")]
         // POST: Room/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
