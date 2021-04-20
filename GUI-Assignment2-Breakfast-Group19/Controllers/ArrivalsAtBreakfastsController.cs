@@ -23,8 +23,17 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         public async Task<IActionResult> Index()
         {
             var sd = new SeedData(_context);
-            return View( _context.ArrivalsAtBreakfast.Include(a=>a.BreakfastAttendees)
-                .First());
+            var arrivals = _context.ArrivalsAtBreakfast
+                .Include(a => a.BreakfastAttendees)
+                .Single(a => a.Date.Date == DateTime.Today.Date);
+            if (arrivals == null)
+            {
+                arrivals = new ArrivalsAtBreakfast() {Date = DateTime.Today};
+                _context.ArrivalsAtBreakfast.Add(arrivals);
+                _context.SaveChanges();
+            }
+        
+        return View(arrivals );
         }
 
         // GET: ArrivalsAtBreakfasts/Details/5
