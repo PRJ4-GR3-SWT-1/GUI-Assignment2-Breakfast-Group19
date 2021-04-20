@@ -1,107 +1,41 @@
-﻿@model ArrivalsExtended
+﻿@model IEnumerable<GUI_Assignment2_Breakfast_Group19.Models.ArrivalsAtBreakfast>
 
 @{
-    ViewData["Title"] = "Arrivals at Breakfast";
+    ViewData["Title"] = "Calendar with breakfast reservations";
 }
 
-
-<h1>Arrivals at Breakfast</h1>
+<h1>Calendar with breakfast reservations</h1>
 
 <p>
-    <button class="btn btn-primary"><a asp-controller="Room" asp-action="CreateArrival" class="text-light">Check New People In</a></button>
+    <button class="btn btn-primary"><a asp-action="Create" class="text-light">Create New Date</a></button>
+
+    <button class="btn btn-primary"><a asp-controller="Room" asp-action="CreateArrival" class="text-light">Check-in for new arrival</a></button>
 </p>
-<p>Guest Checked into Breakfast  @Model.Date.Date.ToString("D"):</p>
+<p>Click on a date to see Check-in and reservations details for that day</p>
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            Room Number
-        </th>
-        <th>
-            Adults
-        </th>
-        <th>
-            Children
-        </th>
-        <th>
-            Actions
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            
+            <th>
+                Actions
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @{
-        int numberOfChildren = 0;
-        int numberOfAdults = 0;
-    }
-    @foreach (var item in Model.BreakfastAttendees)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @item.Adults
-            </td>
-            <td>
-                @item.Children
-            </td>
-            <td>
-                <a asp-controller="Room" asp-action="Edit" asp-route-id="@item.RoomId">Edit</a> |
-                <a asp-controller="Room" asp-action="Details" asp-route-id="@item.RoomId">Details</a> |
-                <a asp-controller="Room" asp-action="Delete" asp-route-id="@item.RoomId">Delete</a>
-            </td>
-        </tr>
-
-        numberOfAdults += item.Adults;
-        numberOfChildren += item.Children;
-
-    }
-    <tr class="summary">
-        <td>
-            Total:
-        </td>
-        <td>
-            @numberOfAdults
-        </td>
-        <td>
-            @numberOfChildren
-        </td>
-        <td>
-            @numberOfAdults + @numberOfChildren = @{int sum = numberOfAdults + numberOfChildren;} @sum
-        </td>
-    </tr>
+@foreach (var item in Model) {
 
     <tr>
-    <td>
-        Total Reservations:
-    </td>
-    <td>
-        @Model.AdultReservations
-    </td>
-    <td>
-        @Model.ChildReservations
-    </td>
-    <td>
-        @Model.AdultReservations + @Model.ChildReservations = @{ int resSum = Model.AdultReservations + Model.ChildReservations;} @resSum
-    </td>
-    <tr class="summary">
-        <td>
-            Not yet arrived :
-        </td>
-        <td>
-            @{int adultsMissing = Model.AdultReservations - numberOfAdults;} @adultsMissing
-        </td>
-        <td>
-            @{int childrenMissing = Model.ChildReservations - numberOfChildren;} @childrenMissing
-        </td>
-        <td>
-            @adultsMissing + @childrenMissing = @{ sum = adultsMissing + childrenMissing;} @sum
-        </td>
-    </tr>
+        <td><a asp-action="Details" asp-route-id="@item.ArrivalsAtBreakfastId">
+            @item.Date.Date.ToString("D")
+        </a></td>
+        
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.ArrivalsAtBreakfastId">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
-    
 </table>
-<button class="btn btn-primary" onClick="window.location.reload();">Refresh Page</button>
-
-
