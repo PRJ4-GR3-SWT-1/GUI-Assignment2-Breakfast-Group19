@@ -24,6 +24,6 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
 
     public class RoomExtended : Room
     {
-        public DateTime date;
+        public DateTime date { get; set; }
     }
 }
