@@ -21,7 +21,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
         public int Adults { get; set; }
         public int Children { get; set; }
     }
-
+    //Transfer object used for creating reservation
     public class RoomExtended : Room
     {
         public DateTime date { get; set; }
