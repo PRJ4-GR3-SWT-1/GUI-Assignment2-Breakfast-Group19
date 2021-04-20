@@ -7,10 +7,9 @@
 <h1>Calendar with breakfast reservations</h1>
 
 <p>
-    <a asp-action="Create">Create New Date</a>
-</p>
-<p>
-    <a asp-controller="Room" asp-action="CreateReservation">Create Breakfast Reservation</a>
+    <button class="btn btn-primary"><a asp-action="Create" class="text-light">Create New Date</a></button>
+
+    <button class="btn btn-primary"><a asp-controller="Room" asp-action="CreateReservation" class="text-light">Create Breakfast Reservation</a></button>
 </p>
 <table class="table">
     <thead>
