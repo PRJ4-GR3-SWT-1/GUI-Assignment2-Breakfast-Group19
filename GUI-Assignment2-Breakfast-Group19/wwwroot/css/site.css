@@ -29,7 +29,21 @@ a {
 html {
   font-size: 14px;
 }
-@media (min-width: 768px) and (max-width: 1023px) {
+
+@media (max-width: 745px) {
+    .btn-primary {
+        font-size: 30px;
+        width: 100%;
+        margin: 5px;
+    }
+
+    .btm_info_bar {
+        font-size: 10px;
+    }
+}
+
+
+@media (min-width: 768px){
   html {
     font-size: 20px;
   }
@@ -56,6 +70,8 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+
+
 
 
 /* Sticky footer styles
