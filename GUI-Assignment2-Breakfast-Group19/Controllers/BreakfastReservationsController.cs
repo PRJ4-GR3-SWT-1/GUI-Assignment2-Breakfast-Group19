@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GUI_Assignment2_Breakfast_Group19.Controllers
 {
+    [Authorize(Policy = "CanAccessReception")]
     public class BreakfastReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,7 +20,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         {
             _context = context;
         }
-        [Authorize(Policy = "CanAccessReception")]
+
         // GET: BreakfastReservations
         public async Task<IActionResult> Index()
         {

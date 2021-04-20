@@ -42,9 +42,13 @@ namespace GUI_Assignment2_Breakfast_Group19
 
                 options.AddPolicy("CanCheckInGuests", policy => policy.RequireClaim("Occupation", "Servant","Admin"));
 
+                options.AddPolicy("CanViewCheckIn", policy => policy.RequireClaim("Occupation", "Kitchen", "Servant","Reception", "Admin"));
+
+                options.AddPolicy("CanEditRooms", policy => policy.RequireClaim("Occupation", "Servant", "Reception", "Admin"));
+
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages(); // Fjernes måske
