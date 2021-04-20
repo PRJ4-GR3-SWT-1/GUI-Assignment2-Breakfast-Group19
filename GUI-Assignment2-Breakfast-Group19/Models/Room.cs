@@ -21,9 +21,4 @@ namespace GUI_Assignment2_Breakfast_Group19.Models
         public int Adults { get; set; }
         public int Children { get; set; }
     }
-
-    public class RoomExtended : Room
-    {
-        public DateTime date;
-    }
 }
