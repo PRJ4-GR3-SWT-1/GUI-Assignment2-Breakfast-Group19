@@ -25,17 +25,29 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         {
             var sd = new SeedData(_context);
             //Check if today exists:
-            var arrivals = _context.ArrivalsAtBreakfast
-                .Include(a => a.BreakfastAttendees)
-                .SingleOrDefault(a => a.Date.Date == DateTime.Today.Date);
-            if (arrivals == null)
+            var todayExists = _context.ArrivalsAtBreakfast
+                .Any(a => a.Date.Date == DateTime.Today.Date);
+            if (todayExists == false)
             {
-                arrivals = (ArrivalsExtended) new ArrivalsAtBreakfast() {Date = DateTime.Today};
+                var arrivals = new ArrivalsAtBreakfast() {Date = DateTime.Today};
                 _context.ArrivalsAtBreakfast.Add(arrivals);
                 _context.SaveChanges();
             }
 
-            var arrivalList = _context.ArrivalsAtBreakfast.ToList();
+            //Make a checkin page for each day with reservations
+            var reservations = _context.BreakfastReservations.ToList();
+            foreach (var reservation in reservations)
+            {
+                if (_context.ArrivalsAtBreakfast
+                    .Any(a =>
+                        a.Date.Date == reservation.Date.Date) == false)
+                {
+                    _context.Add(new ArrivalsAtBreakfast() {Date = reservation.Date.Date});
+                }
+            }
+            _context.SaveChanges();
+
+            var arrivalList = _context.ArrivalsAtBreakfast.OrderBy(a=>a.Date).ToList();
 
             return View(arrivalList);
         }
@@ -86,6 +98,45 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
                 _context.Add(arrivalsAtBreakfast);
                 await _context.SaveChangesAsync();
             }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var breakfastReservations = await _context.ArrivalsAtBreakfast
+                .FirstOrDefaultAsync(m => m.ArrivalsAtBreakfastId == id);
+
+            if (breakfastReservations == null)
+            {
+                return NotFound();
+            }
+
+            return View(breakfastReservations);
+        }
+
+        // POST: BreakfastReservations/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var arrivals = await _context.ArrivalsAtBreakfast
+                .Include(b => b.BreakfastAttendees)
+                .FirstOrDefaultAsync(m => m.ArrivalsAtBreakfastId == id);
+
+            foreach (var room in arrivals.BreakfastAttendees)
+            {
+                _context.Remove(_context.Room.Single(r => r.RoomId == room.RoomId));
+            }
+
+            await _context.SaveChangesAsync();
+
+            _context.ArrivalsAtBreakfast.Remove(arrivals);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
