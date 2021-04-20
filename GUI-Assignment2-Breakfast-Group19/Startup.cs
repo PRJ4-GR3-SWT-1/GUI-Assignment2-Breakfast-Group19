@@ -36,6 +36,14 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CanAccessReception",policy =>policy.RequireClaim("Occupation", "Reception","Admin"));
+
+                options.AddPolicy("CanCheckInGuests", policy => policy.RequireClaim("Occupation", "Servant","Admin"));
+
+            });
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -62,7 +70,7 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             app.UseAuthentication();
             app.UseAuthorization();
-            SeedUsers.SeedTheUsers(userManager);
+            SeedUsers.SeedTheUsers(userManager); // Not currently working
 
             app.UseEndpoints(endpoints =>
             {

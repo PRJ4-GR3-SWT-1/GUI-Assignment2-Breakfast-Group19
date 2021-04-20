@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GUI_Assignment2_Breakfast_Group19.Data;
 using GUI_Assignment2_Breakfast_Group19.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GUI_Assignment2_Breakfast_Group19.Controllers
 {
@@ -18,7 +19,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Policy= "CanCheckInGuests")]
         // GET: ArrivalsAtBreakfasts
         public async Task<IActionResult> Index()
         {
