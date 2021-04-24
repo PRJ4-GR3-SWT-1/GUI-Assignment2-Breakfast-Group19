@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hotel Hügô Breakfast System";
 }
 
 <div class="text-center">
@@ -10,8 +10,15 @@
     </div>
     
     <p>Note from creators (Group 19): Automatic seed data is generated (if necessary) upon visiting Arrivals at breakfast</p>
-    <p>Kitchen staff can view current check in status, and reservations under "Arrivals at breakfast". 
-    Restaurant servants can check people into todays breakfast under "Arrivals at breakfast". 
-   Receptionists can make breakfast reservations under "Breakfast reservations"</p>
+    <p>Kitchen staff can view current check in status, and reservations under "Arrivals at breakfast".
+        <button class="btn btn-primary"><a asp-controller="ArrivalsAtBreakfasts" asp-action="Index" class="text-light">Kitchen</a></button>
+
+        Restaurant servants can check people into todays breakfast under "Arrivals at breakfast". 
+        <button class="btn btn-primary"><a asp-controller="ArrivalsAtBreakfasts" asp-action="Index" class="text-light">Restaurant</a></button>
+
+        Receptionists can make breakfast reservations under "Breakfast reservations"
+        <button class="btn btn-primary"><a asp-controller="BreakfastReservations" asp-action="Index" class="text-light">Reception</a></button>
+
+        </p>
 
 </div>
