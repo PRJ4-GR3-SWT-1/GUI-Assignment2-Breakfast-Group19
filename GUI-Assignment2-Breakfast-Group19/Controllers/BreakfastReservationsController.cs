@@ -61,13 +61,16 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BreakfastReservationsId,Date")] BreakfastReservations breakfastReservations)
         {
-            if (ModelState.IsValid)
+            var result = _context.BreakfastReservations.SingleOrDefault(o => o.Date.Date == breakfastReservations.Date.Date);
+            
+            if (ModelState.IsValid && result==null)
             {
                 _context.Add(breakfastReservations);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(breakfastReservations);
+            return RedirectToAction(nameof(Index));
+            //return View(breakfastReservations);
         }
 
         // GET: BreakfastReservations/Edit/5

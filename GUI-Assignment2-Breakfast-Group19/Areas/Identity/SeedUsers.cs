@@ -58,6 +58,29 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
                 }
             }
 
+            const string kitchenEmail = "kitchen@email.com";
+            const string kitchenPassword = "kK1234%";
+
+            if (userManager.FindByNameAsync(kitchenEmail).Result == null)
+            {
+                var user = new IdentityUser();
+                user.UserName = kitchenEmail;
+                user.Email = kitchenEmail;
+                user.EmailConfirmed = true;
+                IdentityResult result = await userManager.CreateAsync(user, kitchenPassword);
+
+                if (result.Succeeded)
+                {
+                    var nameclaim = new Claim("FullName", "TheKitchen");
+                    await userManager.AddClaimAsync(user, nameclaim);
+
+                    var Occupationclaim = new Claim("Occupation", "Kitchen");
+                    await userManager.AddClaimAsync(user, Occupationclaim);
+
+                    userManager.AddToRoleAsync(user, "Kitchen").Wait();
+                }
+            }
+
         }
     }
     

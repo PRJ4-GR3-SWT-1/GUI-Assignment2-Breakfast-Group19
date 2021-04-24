@@ -74,7 +74,7 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             app.UseAuthentication();
             app.UseAuthorization();
-           // SeedUsers.SeedTheUsers(userManager); // Not currently working
+            SeedUsers.SeedTheUsers(userManager); // Not currently working
 
             app.UseEndpoints(endpoints =>
             {
