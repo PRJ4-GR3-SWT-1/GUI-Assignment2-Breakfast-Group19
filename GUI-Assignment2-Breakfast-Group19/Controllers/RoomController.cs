@@ -148,7 +148,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
             return View(room);
         }
-        [Authorize(Policy = "CanViewCheckIn")]
+        [Authorize(Policy = "CanCheckInGuests")]
         // GET: Room/Delete/5
         public async Task<IActionResult> DeleteRestaurant(int? id)
         {
@@ -192,7 +192,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             var room = await _context.Room.FindAsync(RoomId);
             _context.Room.Remove(room);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),"Home");
         }
 
         private bool RoomExists(int id)

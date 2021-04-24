@@ -72,9 +72,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             return View(arrivalsExtended);
         }
 
-        private async 
-        Task
-CheckForData()
+        private async Task CheckForData()
         {
             var sd = new SeedData(_context);//Seed reservations
             //Check if today exists:
