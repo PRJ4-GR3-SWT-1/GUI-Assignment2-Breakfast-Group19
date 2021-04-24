@@ -29,29 +29,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         // GET: ArrivalsAtBreakfasts
         public async Task<IActionResult> Calendar()
         {
-            var sd = new SeedData(_context);
-            //Check if today exists:
-            var todayExists = _context.ArrivalsAtBreakfast
-                .Any(a => a.Date.Date == DateTime.Today.Date);
-            if (todayExists == false)
-            {
-                var arrivals = new ArrivalsAtBreakfast() {Date = DateTime.Today};
-                _context.ArrivalsAtBreakfast.Add(arrivals);
-                _context.SaveChanges();
-            }
-
-            //Make a checkin page for each day with reservations
-            var reservations = _context.BreakfastReservations.ToList();
-            foreach (var reservation in reservations)
-            {
-                if (_context.ArrivalsAtBreakfast
-                    .Any(a =>
-                        a.Date.Date == reservation.Date.Date) == false)
-                {
-                    _context.Add(new ArrivalsAtBreakfast() {Date = reservation.Date.Date});
-                }
-            }
-            _context.SaveChanges();
+            
 
             var arrivalList = _context.ArrivalsAtBreakfast.OrderBy(a=>a.Date).ToList();
 
@@ -59,12 +37,19 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         }
         public async Task<IActionResult> Details(int? id)
         {
-            var arrivals = _context.ArrivalsAtBreakfast
+            await CheckForData();
+            
+            ArrivalsAtBreakfast arrivals=null;
+            if (id != null) { 
+            arrivals =await _context.ArrivalsAtBreakfast
                 .Include(a => a.BreakfastAttendees)
-                .SingleOrDefault(a => a.ArrivalsAtBreakfastId==id);
-            if (arrivals == null)
+                .SingleOrDefaultAsync(a => a.ArrivalsAtBreakfastId==id);
+            }
+            else//Find today
             {
-                arrivals = await _context.ArrivalsAtBreakfast.SingleAsync(a => a.Date.Date == DateTime.Today.Date);
+                arrivals = await _context.ArrivalsAtBreakfast
+                    .Include(a=>a.BreakfastAttendees)
+                    .SingleOrDefaultAsync(a => a.Date.Date == DateTime.Today.Date);
             }
 
             if (arrivals == null)
@@ -75,7 +60,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             //Get reservations:
             var res = _context.BreakfastReservations
                 .Include(r => r.BreakfastReservationList)
-                .SingleOrDefault(r => r.Date.Date == DateTime.Today.Date);
+                .SingleOrDefault(r => r.Date.Date == arrivals.Date.Date);
             var resNumber = res?.GetNumberOfAdultsAndChildren();
             ArrivalsExtended arrivalsExtended = new ArrivalsExtended(arrivals);
             if (resNumber != null)
@@ -85,6 +70,35 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
 
             return View(arrivalsExtended);
+        }
+
+        private async 
+        Task
+CheckForData()
+        {
+            var sd = new SeedData(_context);//Seed reservations
+            //Check if today exists:
+            var todayExists =await _context.ArrivalsAtBreakfast
+                .AnyAsync(a => a.Date.Date == DateTime.Today.Date);
+            if (todayExists == false)
+            {
+                var arrivals = new ArrivalsAtBreakfast() { Date = DateTime.Today };
+                _context.ArrivalsAtBreakfast.Add(arrivals);
+                await _context.SaveChangesAsync();
+            }
+
+            //Make a checkin page for each day with reservations
+            var reservations =await _context.BreakfastReservations.ToListAsync();
+            foreach (var reservation in reservations)
+            {
+                if (await _context.ArrivalsAtBreakfast
+                    .AnyAsync(a =>
+                        a.Date.Date == reservation.Date.Date) == false)
+                {
+                   await _context.AddAsync(new ArrivalsAtBreakfast() { Date = reservation.Date.Date });
+                }
+            }
+            await _context.SaveChangesAsync();
         }
 
         public IActionResult Create()
