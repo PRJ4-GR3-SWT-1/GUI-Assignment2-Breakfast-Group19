@@ -12,11 +12,16 @@ There are restrictions on input, to ensure a certain standard when registering a
 
 The systems contain four differently authorized type of users. All users can access all site, but interaction is dependent on type.
 - Servant (Mainly uses a phone)
---- Is able to "Check-in" guests and rooms in the restaurent (Page "Arrivals at Breakfast")
+--- Is able to "Check-in" guests and rooms in the restaurent (Page "Arrivals at Breakfast").
+
 - Reception (Mainly uses a compunter)
---- Is allowed to create new Breakfast Reservations (Page "Breakfast Reservations")
+--- Is allowed to create new Breakfast Reservations (Page "Breakfast Reservations").
+
 - Kitchen (Mainly uses an IPad)
---- Is able to see current status on arrived guest in the restaurent (Page "Arrivals at Breakfast")
+--- Is able to see current status on arrived guest in the restaurent (Page "Arrivals at Breakfast").
 --- Is able to view the correct information for another day (Page "Arrivals at Breakfast"). 
+
 - Admin (non-specified)
---- Has access to all
+--- Has access to all 
+
+
