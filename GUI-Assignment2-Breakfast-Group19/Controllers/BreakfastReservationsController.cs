@@ -25,6 +25,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.BreakfastReservations
+                .OrderBy(r=>r.Date)
                 .Include(r =>r.BreakfastReservationList)
                 .ToListAsync());
         }
@@ -133,14 +134,8 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
 
             var breakfastReservations = await _context.BreakfastReservations
-                .Include(b=>b.BreakfastReservationList)
                 .FirstOrDefaultAsync(m => m.BreakfastReservationsId == id);
-            foreach (var room in breakfastReservations.BreakfastReservationList)
-            {
-                _context.Remove(_context.Room.Single(r => r.RoomId == room.RoomId));
-            }
 
-            _context.SaveChanges();
             if (breakfastReservations == null)
             {
                 return NotFound();
@@ -163,12 +158,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
                 _context.Remove(_context.Room.Single(r => r.RoomId == room.RoomId));
             }
 
-            _context.SaveChanges();
-
-
-
-
-
+            await _context.SaveChangesAsync();
 
             _context.BreakfastReservations.Remove(breakfastReservations);
             await _context.SaveChangesAsync();
