@@ -11,7 +11,6 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
     {
         public static async Task SeedTheUsers(UserManager<IdentityUser> userManager)
         {
-            return;
             const string receptionEmail = "Receptionist@email.com";
             const string receptionPassword = "rR1234%";
 
@@ -81,7 +80,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
                 }
             }
 
-            const string adminEmail = "admin@email.com";
+            const string adminEmail = "Admin@email.com";
             const string adminPassword = "aA1234%";
 
             if (userManager.FindByNameAsync(adminEmail).Result == null)
