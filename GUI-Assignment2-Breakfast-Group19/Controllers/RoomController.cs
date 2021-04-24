@@ -148,9 +148,9 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
             }
             return View(room);
         }
-        [Authorize(Policy = "CanEditRooms")]
+        [Authorize(Policy = "CanViewCheckIn")]
         // GET: Room/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteRestaurant(int? id)
         {
             if (id == null)
             {
@@ -164,15 +164,32 @@ namespace GUI_Assignment2_Breakfast_Group19.Controllers
                 return NotFound();
             }
 
-            return View(room);
+            return View("Delete",room);
+        }
+        [Authorize(Policy = "CanAccessReception")]
+        public async Task<IActionResult> DeleteReception(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var room = await _context.Room
+                .FirstOrDefaultAsync(m => m.RoomId == id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            return View("Delete", room);
         }
         [Authorize(Policy = "CanEditRooms")]
         // POST: Room/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int RoomId)
         {
-            var room = await _context.Room.FindAsync(id);
+            var room = await _context.Room.FindAsync(RoomId);
             _context.Room.Remove(room);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
