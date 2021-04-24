@@ -31,8 +31,12 @@ namespace GUI_Assignment2_Breakfast_Group19
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-           /* services.AddDefaultIdentity<IdentityUser>(option => option.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();*/
+            services.AddDefaultIdentity<IdentityUser>(
+                    option =>
+                    {
+                        option.SignIn.RequireConfirmedAccount = false;
+                    })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -48,8 +52,8 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>();*/
             services.AddControllersWithViews();
             services.AddRazorPages(); // Fjernes måske
         }
@@ -74,7 +78,7 @@ namespace GUI_Assignment2_Breakfast_Group19
 
             app.UseAuthentication();
             app.UseAuthorization();
-            SeedUsers.SeedTheUsers(userManager); // Not currently working
+            SeedUsers.SeedTheUsers(userManager).Wait(); 
 
             app.UseEndpoints(endpoints =>
             {

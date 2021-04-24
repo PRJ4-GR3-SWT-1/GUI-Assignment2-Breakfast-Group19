@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
 {
-    public class SeedUsers
+    public static class SeedUsers
     {
-        public static async void SeedTheUsers(UserManager<IdentityUser> userManager)
+        public static async Task SeedTheUsers(UserManager<IdentityUser> userManager)
         {
 
             const string receptionEmail = "Receptionist@email.com";
@@ -31,7 +31,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
                     var Occupationclaim = new Claim("Occupation", "Reception");
                     await userManager.AddClaimAsync(user, Occupationclaim);
 
-                    userManager.AddToRoleAsync(user, "Reception").Wait();
+                  //  userManager.AddToRoleAsync(user, "Reception").Wait();
                 }
             }
 
@@ -54,7 +54,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
                     var Occupationclaim = new Claim("Occupation", "Servant");
                     await userManager.AddClaimAsync(user, Occupationclaim);
 
-                    userManager.AddToRoleAsync(user, "Servant").Wait();
+                   // userManager.AddToRoleAsync(user, "Servant").Wait();
                 }
             }
 
@@ -77,7 +77,30 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
                     var Occupationclaim = new Claim("Occupation", "Kitchen");
                     await userManager.AddClaimAsync(user, Occupationclaim);
 
-                    userManager.AddToRoleAsync(user, "Kitchen").Wait();
+                   // userManager.AddToRoleAsync(user, "Kitchen").Wait();
+                }
+            }
+
+            const string adminEmail = "admin@email.com";
+            const string adminPassword = "aA1234%";
+
+            if (userManager.FindByNameAsync(adminEmail).Result == null)
+            {
+                var user = new IdentityUser();
+                user.UserName = adminEmail;
+                user.Email = adminEmail;
+                user.EmailConfirmed = true;
+                IdentityResult result = await userManager.CreateAsync(user, adminPassword);
+
+                if (result.Succeeded)
+                {
+                    var nameclaim = new Claim("FullName", "TheAdmin");
+                    await userManager.AddClaimAsync(user, nameclaim);
+
+                    var Occupationclaim = new Claim("Occupation", "Admin");
+                    await userManager.AddClaimAsync(user, Occupationclaim);
+
+                   // userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
 
