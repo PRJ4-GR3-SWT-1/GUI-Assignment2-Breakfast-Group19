@@ -1,5 +1,8 @@
 ﻿Welcome to the Hotel Hügô Employee site.
 
+BEFORE USING:
+Run Update-Database in Package Manager Console to set up local db.
+
 HOW TO USE: 
 Currently, these users are seeded, and can be used. Username / password
 - Servant@email.com / sS1234%
