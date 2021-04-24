@@ -58,7 +58,7 @@
     }
     <tr class="summary">
         <td>
-            Total:
+            Total Arrivals:
         </td>
         <td>
             @numberOfAdults
@@ -73,7 +73,7 @@
 
     <tr>
     <td>
-        Total Reservations:
+        Expected guests:
     </td>
     <td>
         @Model.AdultReservations
@@ -86,7 +86,7 @@
     </td>
     <tr class="summary">
         <td>
-            Not yet arrived :
+            Difference :
         </td>
         <td>
             @{int adultsMissing = Model.AdultReservations - numberOfAdults;} @adultsMissing

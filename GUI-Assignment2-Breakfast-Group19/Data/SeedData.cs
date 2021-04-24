@@ -54,12 +54,12 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
             {
                 
                 BreakfastReservations br = new BreakfastReservations(DateTime.Today.AddDays(day));
-                for (int i = 1;i < 10; i++)
+                for (int i = 1;i < 20; i++)
                 {
-                    Room r = SeedRoomRandomAdultAndChildren(i,dbContext);
+                    
                     if ((i % 2) == 1)
                     {
-
+                        Room r = SeedRoomRandomAdultAndChildren(i, dbContext);
                         br.BreakfastReservationList.Add(r);
 
                     }
