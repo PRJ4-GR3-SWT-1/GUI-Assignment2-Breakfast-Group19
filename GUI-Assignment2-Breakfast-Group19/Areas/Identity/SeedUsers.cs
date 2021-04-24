@@ -11,7 +11,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Areas.Identity
     {
         public static async void SeedTheUsers(UserManager<IdentityUser> userManager)
         {
-
+            return;
             const string receptionEmail = "Receptionist@email.com";
             const string receptionPassword = "rR1234%";
 

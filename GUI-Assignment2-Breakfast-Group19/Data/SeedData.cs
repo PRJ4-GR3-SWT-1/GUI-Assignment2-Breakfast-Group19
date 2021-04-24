@@ -54,7 +54,7 @@ namespace GUI_Assignment2_Breakfast_Group19.Data
             {
                 
                 BreakfastReservations br = new BreakfastReservations(DateTime.Today.AddDays(day));
-                for (int i = 1;i < 5; i++)
+                for (int i = 1;i < 10; i++)
                 {
                     Room r = SeedRoomRandomAdultAndChildren(i,dbContext);
                     if ((i % 2) == 1)
