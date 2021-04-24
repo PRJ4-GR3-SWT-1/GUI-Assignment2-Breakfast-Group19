@@ -3,7 +3,7 @@
 HOW TO USE: 
 Currently, these users are seeded, and can be used. Username / password
 - Servant@email.com / sS1234%
-- Receptionist@email.com / rR1234%
+- Reception@email.com / rR1234%
 - Kitchen@email.com / kK1234%
 - Admin@email.com / aA1234%
 
@@ -16,6 +16,7 @@ The systems contain four differently authorized type of users. All users can acc
 
 - Reception (Mainly uses a compunter)
 --- Is allowed to create new Breakfast Reservations (Page "Breakfast Reservations").
+--- Is allowed to check which people ate breakfast for a specific day (Page "Arrivals At Breakfast")
 
 - Kitchen (Mainly uses an IPad)
 --- Is able to see current status on arrived guest in the restaurent (Page "Arrivals at Breakfast").
